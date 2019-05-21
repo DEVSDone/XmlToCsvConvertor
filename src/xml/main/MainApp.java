@@ -34,8 +34,6 @@ public class MainApp
 	{
 		try
 		{
-
-		//	System.out.println("Path :  "+folderPath);
 			int fileProcessCount = 0 ;
 			ArrayList<String> fileNames = getAllFilesFromFolder(folderPath);
 			for(String fname:fileNames)

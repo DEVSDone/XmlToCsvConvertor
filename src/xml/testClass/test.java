@@ -1,39 +1,125 @@
 package xml.testClass;
 
 
-import org.apache.commons.lang3.StringUtils;
+import java.io.File;
+import java.io.IOException;
+import java.io.Writer;
+import java.util.ArrayList;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
+
+import com.sun.xml.bind.marshaller.CharacterEscapeHandler;
+
+import xml.ReadObj.ItemObject;
+import xml.ReadObj.ItemsObject;
+import xml.ReadObj.MetaDataObject;
+import xml.ReadObj.PartListObject;
+import xml.ReadObj.Property;
+import xml.main.MainApp;
 
 public class test
-
 {
+	static String path = "D:/JCI project/XMLToCsvConversion/Testing";  //Testing purpose variable:
+	static String folderPath = path.toString();
+	static Set<String[]> testSet = new LinkedHashSet<String[]>();
+	
 	public static void main(String[] args) 
 	{
 
-		String   se_Eff = "(OR (AND (PRODUCT 'YKHHGBJ1CYF') (INSTANCE 'SFPM851140' 'SFPM850990')) (AND (PRODUCT 'YCUL0120EC46XCB') (INSTANCE '2NTM002437' '2LTM001975' '2LTM001972' '2LTM001974' '2FVM003749' '2GTM001239' '2HTM001559' '2LTM001973')) (AND (PRODUCT 'YVAA0153BAV46AA') (INSTANCE '2FXM011981' '2FXM011980'))";
-
-		String[] sSplit = se_Eff.split("PRODUCT");
-		for (String string : sSplit) 
+		ArrayList<String> fileNames = MainApp.getAllFilesFromFolder(folderPath);
+		
+		for(String fname:fileNames)
 		{
-			if(string.contains("INSTANCE"))
+			String currentFile =folderPath+"/"+fname;			
+			System.out.println("File :"+currentFile);
+			
+			File xmlfile = new File(currentFile);
+			try 
 			{
-				System.out.println("main SPlit :"+string+":");
-				String[] splitByProd = string.split(" "); 
+/*				JAXBContext jaxbContext = JAXBContext.newInstance(PartListObject.class);
+				Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+				PartListObject prtListObj = (PartListObject) jaxbUnmarshaller.unmarshal(xmlfile);
+				List<MetaDataObject> metaObjList = prtListObj.getMetaDataObject();
+				List<ItemsObject> itemsObjList = prtListObj.getItemsObject();*/
 
-				String productName = splitByProd[1].replaceAll("[\\',)]", "");
-				//	System.out.println("##:ProductName Finally :"+ productName );
-				String[] splitForInstacne = string.split("INSTANCE");
 
-				String instances = splitForInstacne[1];
-				String[] inst = instances.split(" ");
-				for (String instance : inst) 
+			//	Property customer = new Property("number", "COMPRESSOR & GASKETS (10241K32128300)");
+
+				File file = new File("D:\\file.xml");
+				JAXBContext jaxbContextW = JAXBContext.newInstance(Property.class);
+				Marshaller jaxbMarshaller = jaxbContextW.createMarshaller();
+
+				// output pretty printed
+				jaxbMarshaller.setProperty(Marshaller.JAXB_ENCODING, "US-ASCII");
+				 CharacterEscapeHandler escapeHandler = new CharacterEscapeHandler() {
+					
+					@Override
+					public void escape(char[] buf, int start, int len, boolean isAttValue,
+							Writer out) throws IOException {
+							for (int i = start; i < start + len; i++) {
+							char ch = buf[i];
+							out.write(ch);
+							}
+							}
+				} ;
+				 jaxbMarshaller.setProperty("com.sun.xml.bind.characterEscapeHandler", escapeHandler);
+				jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+				jaxbMarshaller.marshal(customer, file);
+				jaxbMarshaller.marshal(customer, System.out);
+				
+				/*	for (MetaDataObject metaDataObject : metaObjList)
 				{
-					//System.out.println("Second SPlit :"+instance+":");
-					String singleInstName = StringUtils.substringBetween(instance,"'", "'");
-					if((!(singleInstName == null))  )
+					//System.out.println("Meta Info :"+metaDataObject.getId());
+					if(metaDataObject.getId().contains("PartList_"))
 					{
-						System.out.println("productName:"+productName+" :INSTANCE :"+singleInstName);
+						List<Property> propertyList = metaDataObject.getPropertyList();				
+						for (Property propertyObject : propertyList) 
+						{
+							System.out.println("Propery Info: "+propertyObject.getToken());
+
+						}
 					}
-				}
+				}*/
+
+			/*	for (ItemsObject itemsObject : itemsObjList) 
+				{
+					List<ItemObject> itemList = itemsObject.getItemList();
+					if( (!(itemList == null) ) )
+					{
+						for (ItemObject itemObject : itemList) 
+						{
+							List<MetaDataObject> itemMetadataList = itemObject.getMetaDataObject();
+							for (MetaDataObject metaDataObject : itemMetadataList)
+							{
+								//System.out.println("Meta Info :"+metaDataObject.getId());								
+								if(metaDataObject.getId().contains("WTPart_"))
+								{
+									List<Property> propertyList = metaDataObject.getPropertyList();				
+									for (Property propertyObject : propertyList) 
+									{
+										System.out.println("Propery Info: "+propertyObject.getToken());
+										//System.out.println("propertyObject.getValue(): "+propertyObject.getValue());
+										
+										if(propertyObject.getValue().toString().contains("&"))
+										{
+											System.out.println("propertyObject.getValue(): "+propertyObject.getValue());
+										}
+
+									}
+								}
+							}
+						}
+					}*/
+				//}
+			} catch (JAXBException e) 
+			{
+				e.printStackTrace();
 			}
 		}
 	}

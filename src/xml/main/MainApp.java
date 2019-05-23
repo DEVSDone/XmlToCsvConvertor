@@ -374,7 +374,7 @@ public class MainApp
 		}
 
 	}
-	private static void writeCSVFile(Set<String[]> allItems2,int CountAsNameOfFile) 
+	public static void writeCSVFile(Set<String[]> allItems2,int CountAsNameOfFile) 
 	{
 		String fileName = String.valueOf(CountAsNameOfFile)+".csv";
 		System.out.println("#######   Writing into csv file is going on ######### "+fileName);
@@ -474,7 +474,7 @@ public class MainApp
 
 	}
 
-	private static ArrayList<String> getAllFilesFromFolder(String directoryName ) 
+	public static ArrayList<String> getAllFilesFromFolder(String directoryName ) 
 	{
 		ArrayList<String> files =new ArrayList<String>();
 		File directory = new File(directoryName);

@@ -16,6 +16,7 @@ public class MetaDataObject
 		return partListNumber;
 	}
 
+	
 	public void setPartListNumber(String partListNumber) {
 		this.partListNumber = partListNumber;
 	}
@@ -34,5 +35,7 @@ public class MetaDataObject
 
 	public void setPropertyList(List<Property> propertyList) {
 		this.propertyList = propertyList;
-	}	
+	}
+
+
 }

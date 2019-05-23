@@ -15,6 +15,7 @@ public class PartListObject
 	public List<MetaDataObject> getMetaDataObject() {
 		return metaDataObject;
 	}
+
 	public void setMetaDataObject(List<MetaDataObject> metaDataObject) {
 		this.metaDataObject = metaDataObject;
 	}
@@ -22,9 +23,11 @@ public class PartListObject
 	public List<ItemsObject> getItemsObject() {
 		return itemsObject;
 	}
+
 	public void setItemsObject(List<ItemsObject> itemsObject) {
 		this.itemsObject = itemsObject;
 	}
+	
 	
 	
 }

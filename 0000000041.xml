@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?><PartsList href="x-wc://7f920b2224d8a47d:wt.part.WTPartMaster:035-18188-000" version="2.0">
+   <Metadata id="PartList_13642579486" source="com.ptc.arbortext.windchill.partlist.PartList">
+      <Property token="orgName">
+         <Value>Building Efficiency</Value>
+      </Property>
+      <Property token="type">
+         <Value>Parts List</Value>
+      </Property>
+      <Property token="versionIdentifer.versionId">
+         <Value>A</Value>
+      </Property>
+      <Property token="number">
+         <Value>0000000041</Value>
+      </Property>
+      <Property token="thePersistInfo.updateStamp">
+         <Value>2019-03-26 07:50:07.0</Value>
+      </Property>
+      <Property token="name">
+         <Value transidref="bee9243bc063f97b" xml:lang="en">035-18188-000-LABEL ASHRAE COMPLIANCE</Value>
+      </Property>
+      <Property token="iteration">
+         <Value>117</Value>
+      </Property>
+      <Property token="thePersistInfo.createStamp">
+         <Value>2015-12-12 03:54:58.0</Value>
+      </Property>
+      <Property token="creator.name">
+         <Value>servicepartsldr</Value>
+      </Property>
+      <Property token="thePersistInfo.modifyStamp">
+         <Value>2019-03-26 07:50:07.0</Value>
+      </Property>
+      <Property token="lifeCycleState">
+         <Value key="INWORK">In Work</Value>
+      </Property>
+   </Metadata>
+   <Metadata id="WTPart_12101194683" source="wt.part.WTPart|com.jci.na.cg.wc.JCIPart"><Property token="orgName"><Value>Building Efficiency</Value></Property><Property token="ServiceDescription"><Value>LABEL (ASHRAE COMPLIANCE)</Value></Property><Property token="BESAPLegacyPartNumber"><Value>564246</Value></Property><Property token="objName"><Value>LABEL ASHRAE COMPLIANCE</Value></Property><Property token="defaultUnit"><Value>ea</Value></Property><Property token="number"><Value>035-18188-000</Value></Property><Property token="objNumber"><Value>035-18188-000</Value></Property><Property token="thePersistInfo.updateStamp"><Value>2018-12-11 19:34:42.0</Value></Property><Property token="servicekit"><Value>false</Value></Property><Property token="name"><Value>LABEL ASHRAE COMPLIANCE</Value></Property><Property token="serviceable"><Value>true</Value></Property><Property token="thePersistInfo.modifyStamp"><Value>2018-12-11 19:34:42.0</Value></Property></Metadata><Images>
+      <Image uri="x-wc://file=0000038420.idr?format=svg" path="com.jci.na.cg.wc.DynamicDocument/7689685955.svg"><Metadata id="EPMDocument_7689685955" source="wt.epm.EPMDocument|com.jci.na.cg.wc.DynamicDocument">
+            <Property token="revisionNumber">
+               <Value>0</Value>
+            </Property>
+            <Property token="docSubType">
+               <Value>ILLUSTRATION</Value>
+            </Property>
+            <Property token="type">
+               <Value>Dynamic Document</Value>
+            </Property>
+            <Property token="number">
+               <Value>0000038420</Value>
+            </Property>
+            <Property token="placeHolder">
+               <Value>false</Value>
+            </Property>
+            <Property token="creator.name">
+               <Value>clewisrk</Value>
+            </Property>
+            <Property token="orgName">
+               <Value>Building Efficiency</Value>
+            </Property>
+            <Property token="versionIdentifer.versionId">
+               <Value>1</Value>
+            </Property>
+            <Property token="thePersistInfo.updateStamp">
+               <Value>2017-12-13 14:17:11.0</Value>
+            </Property>
+            <Property token="name">
+               <Value>CH_NON-SERVICE_SHT01.idr</Value>
+            </Property>
+            <Property token="authoringApplication">
+               <Value>ISODRAW</Value>
+            </Property>
+            <Property token="iteration">
+               <Value>2</Value>
+            </Property>
+            <Property token="derived">
+               <Value>false</Value>
+            </Property>
+            <Property token="CADName">
+               <Value>0000038420.idr</Value>
+            </Property>
+            <Property token="thePersistInfo.modifyStamp">
+               <Value>2017-12-13 14:17:11.0</Value>
+            </Property>
+            <Property token="docType">
+               <Value>PUB_GRAPHIC</Value>
+            </Property>
+            <Property token="missingDependents">
+               <Value>false</Value>
+            </Property>
+            <Property token="typeDisplayName">
+               <Value>Dynamic Document</Value>
+            </Property>
+            <Property token="ownerApplication">
+               <Value>EPM</Value>
+            </Property>
+         </Metadata><Metadata id="PartListToEPMDocumentLink_13642579492" source="com.ptc.arbortext.windchill.partlist.PartListToEPMDocumentLink">
+            <Property token="thePersistInfo.updateStamp">
+               <Value>2019-03-26 07:50:05.0</Value>
+            </Property>
+            <Property token="thePersistInfo.modifyStamp">
+               <Value>2019-03-26 07:50:05.0</Value>
+            </Property>
+         </Metadata></Image>
+   </Images>
+   <Items>
+      <Item href="x-wc://7d80a0207c8e0d47:wt.part.WTPartMaster:035Y19534-003">
+         <Metadata id="PartListItem_13642579488" source="com.ptc.arbortext.windchill.partlist.PartListItem">
+            <Property token="itemNumber">
+               <Value>1</Value>
+            </Property>
+            <Property token="itemQuantity">
+               <Value>1</Value>
+            </Property>
+            <Property token="structureId">
+               <Value>1a15120b-d76d-4388-bb5c-ef2751ee6518</Value>
+            </Property>
+            <Property token="lineNumber.value">
+               <Value>1</Value>
+            </Property>
+            <Property token="type">
+               <Value>Parts List Item</Value>
+            </Property>
+            <Property token="thePersistInfo.updateStamp">
+               <Value>2019-03-26 07:50:05.0</Value>
+            </Property>
+            <Property token="illustrated">
+               <Value>true</Value>
+            </Property>
+            <Property token="serviceable">
+               <Value>false</Value>
+            </Property>
+            <Property token="indenture">
+               <Value>0</Value>
+            </Property>
+            <Property token="thePersistInfo.modifyStamp">
+               <Value>2019-03-26 07:50:05.0</Value>
+            </Property>
+         </Metadata>
+      <Metadata id="WTPart_9501814264" source="wt.part.WTPart|com.jci.na.cg.wc.JCIPart"><Property token="number"><Value>035Y19534-003</Value></Property><Property token="orgName"><Value>Building Efficiency</Value></Property><Property token="ServiceDescription"><Value>LABEL SILVER 4"X 2"</Value></Property><Property token="name"><Value>035Y19534-003-LABEL SILVER 4"X 2"</Value></Property><Property token="serviceable_descendant"><Value>true</Value></Property><Property token="BESAPLegacyPartNumber"><Value>1116652</Value></Property><Property token="serviceable"><Value>false</Value></Property></Metadata></Item>
+      <Item href="x-wc://ff6a6dd86698218c:wt.part.WTPartMaster:035Y19535-001">
+         <Metadata id="PartListItem_13642579489" source="com.ptc.arbortext.windchill.partlist.PartListItem">
+            <Property token="itemNumber">
+               <Value>2</Value>
+            </Property>
+            <Property token="itemQuantity">
+               <Value>0</Value>
+            </Property>
+            <Property token="structureId">
+               <Value>b49e6096-dffd-4a61-8c24-5fba35fb3518</Value>
+            </Property>
+            <Property token="lineNumber.value">
+               <Value>2</Value>
+            </Property>
+            <Property token="type">
+               <Value>Parts List Item</Value>
+            </Property>
+            <Property token="thePersistInfo.updateStamp">
+               <Value>2019-03-26 07:50:05.0</Value>
+            </Property>
+            <Property token="illustrated">
+               <Value>true</Value>
+            </Property>
+            <Property token="serviceable">
+               <Value>false</Value>
+            </Property>
+            <Property token="indenture">
+               <Value>0</Value>
+            </Property>
+            <Property token="thePersistInfo.modifyStamp">
+               <Value>2019-03-26 07:50:05.0</Value>
+            </Property>
+         </Metadata>
+      <Metadata id="WTPart_9501794791" source="wt.part.WTPart|com.jci.na.cg.wc.JCIPart"><Property token="number"><Value>035Y19535-001</Value></Property><Property token="orgName"><Value>Building Efficiency</Value></Property><Property token="ServiceDescription"><Value>RIBBON 5100 RESIGN 110 MM</Value></Property><Property token="name"><Value>035Y19535-001-RIBBON 5100 RESIGN 110 MM</Value></Property><Property token="serviceable_descendant"><Value>true</Value></Property><Property token="BESAPLegacyPartNumber"><Value>1116655</Value></Property><Property token="serviceable"><Value>false</Value></Property></Metadata></Item>
+   </Items>
+</PartsList>

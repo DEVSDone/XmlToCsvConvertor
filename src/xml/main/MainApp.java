@@ -18,6 +18,8 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.opencsv.CSVWriter;
 
+import xml.ReadObj.ImageObject;
+import xml.ReadObj.ImagesObject;
 import xml.ReadObj.ItemObject;
 import xml.ReadObj.ItemsObject;
 import xml.ReadObj.MetaDataObject;
@@ -29,27 +31,33 @@ public class MainApp
 {
 
 	static Set<String[]> allItems = new LinkedHashSet<String[]>();
-	//	static String folderPath="D:/JCI project/XMLToCsvConversion/PartListFolder/20May2019/500Testing";
-	static Path path = FileSystems.getDefault().getPath(".").toAbsolutePath(); //Original value for path 
-	//static String path = "D:/JCI project/XMLToCsvConversion/Testing";  //Testing purpose variable:
-	static String folderPath = path.toString();
+	//static String folderPath="D:/JCI project/XMLToCsvConversion/PartListFolder/ImageTagTesting"; //TODO :Comment this while creating jar
+
+	static Path path = FileSystems.getDefault().getPath(".").toAbsolutePath(); //Original value for path :Takes the path where runnable jar is placed.
+	
+	static String folderPath = path.toString(); // :Temporary commented ...:Remove Comment while creating jar .
 
 	public static void main(String[] args) 
 	{
 		System.out.println("Path: "+folderPath);
-		  LocalDateTime start = LocalDateTime.now();  
+		LocalDateTime start = LocalDateTime.now();  
 		System.out.println("## Start Time: "+start.toString());
-		XmlAndMetaToCsv();
+
+		XmlToCsv();  //This function modified for Image tag from PartList Item
+
+		//Below function for xml and Meta file conversion 
+		//XmlAndMetaToCsv();
 		LocalDateTime end = LocalDateTime.now();  
 		System.out.println("## End Time: "+end.toString());
 	}
 
-	//Function : This function read xml and meta  files and take some values from both files and write into csv file.
+	//Function : This function read xml and meta files and take some values from both files and write into csv file.
+	@SuppressWarnings("unused")
 	private static void XmlAndMetaToCsv()
 	{
 		try
 		{
-			int fileProcessCount = 0 ;
+			int fileProcessCount = 1 ;
 			ArrayList<String> fileNames = getAllFilesFromFolder(folderPath);
 			for(String fname:fileNames)
 			{
@@ -59,7 +67,7 @@ public class MainApp
 					continue;
 				}
 
-				System.out.println("################## File in Process : "+fileProcessCount++ +" File Name : "+fname);
+				System.out.println("################## File in Process : "+fileProcessCount +" File Name : "+fname);
 
 				String currentFile =folderPath+"/"+fname;			
 
@@ -98,8 +106,8 @@ public class MainApp
 					{
 
 						String se_Eff = getMeta_Ser_Effectivity(fname); //Getting Service Effectivity from 
-						
-					//	System.out.println("Se_Eff :"+se_Eff);
+
+						//	System.out.println("Se_Eff :"+se_Eff);
 						for (ItemObject itemObject : itemList) 
 						{
 							List<MetaDataObject> itemMetadataList = itemObject.getMetaDataObject();
@@ -140,18 +148,20 @@ public class MainApp
 									}
 								}																
 							}
-						//	System.out.println("Values:"+partNumber+":"+itemNum+":"+itemQty+":");
+							//	System.out.println("Values:"+partNumber+":"+itemNum+":"+itemQty+":");
 							splitMeta_Ser_Eff(se_Eff,partListNumber,partNumber,itemNum,itemQty);
-
 						}
 					}
-				}			
-				if(fileProcessCount%500 == 0)
+				}								
+
+				if(fileProcessCount % 5000 == 0)
 				{
 					System.out.println("########### Total Lines to write in csv file : "+allItems.size()+" ########### ");
 					writeMetaToCsvFile(allItems,fileProcessCount);
 					allItems.clear();
 				}
+
+				fileProcessCount++; //Increasing the count as file processed.
 			}
 
 			System.out.println("########### Total Lines to write in csv file : "+allItems.size()+" ########### ");
@@ -203,9 +213,9 @@ public class MainApp
 
 		} catch (Exception e)
 		{
-		//	System.out.println("Meta file not available for :"+fname);
-		//	System.out.println("Exception in getting metafile : "+e.getMessage() );
-		//	e.printStackTrace();
+			//	System.out.println("Meta file not available for :"+fname);
+			//	System.out.println("Exception in getting metafile : "+e.getMessage() );
+			//	e.printStackTrace();
 		}
 
 		return meta_Ser_Eff;
@@ -219,7 +229,7 @@ public class MainApp
 		{
 			if(string.contains("INSTANCE"))
 			{
-			//	System.out.println("main SPlit :"+string+":");
+				//	System.out.println("main SPlit :"+string+":");
 				String[] splitByProd = string.split(" "); 
 
 				String productName = splitByProd[1].replaceAll("[\\',)]", "");
@@ -234,7 +244,7 @@ public class MainApp
 					String singleInstName = StringUtils.substringBetween(instance,"'", "'");
 					if((!(singleInstName == null))  )
 					{
-					//	System.out.println("productName:"+productName+" :INSTANCE :"+singleInstName);
+						//	System.out.println("productName:"+productName+" :INSTANCE :"+singleInstName);
 
 						String[] foreachPrdDateRanges =new String[6]; 
 						foreachPrdDateRanges[0]=partListNumber;
@@ -255,7 +265,6 @@ public class MainApp
 	//Function : This function read only xml files and take some values and write into csv file.
 	public static void XmlToCsv()
 	{
-
 		try
 		{
 			int fileProcessCount = 0 ;
@@ -268,8 +277,8 @@ public class MainApp
 					continue;
 				}
 
-				System.out.println("################## File in Process : "+fileProcessCount++ +" File Name : "+fname);
-
+				fileProcessCount+=1;
+				System.out.println("################## File in Process : "+ fileProcessCount +" File Name : "+fname);
 				String currentFile =folderPath+"/"+fname;			
 
 				File xmlfile = new File(currentFile);
@@ -278,9 +287,11 @@ public class MainApp
 				Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
 				PartListObject prtListObj = (PartListObject) jaxbUnmarshaller.unmarshal(xmlfile);
 				List<MetaDataObject> metaObjList = prtListObj.getMetaDataObject();
-				List<ItemsObject> itemsObjList = prtListObj.getItemsObject();
-
+				//	List<ItemsObject> itemsObjList = prtListObj.getItemsObject();
+				List<ImagesObject> imagesObjList = prtListObj.getImagesObject();
 				String partListNumber =" " ;  //PartList number 
+				String modelNumber =" " ;  //PartList ModelNumber 
+				String serialNumber =" " ;  //PartList SerialNumber 
 
 				//For loop for PartList Metadata
 				for (MetaDataObject metaDataObject : metaObjList)
@@ -291,16 +302,70 @@ public class MainApp
 						List<Property> propertyList = metaDataObject.getPropertyList();				
 						for (Property propertyObject : propertyList) 
 						{
-							//System.out.println("Propery Info: "+propertyObject.getToken());
+							//	System.out.println("Propery Info: "+propertyObject.getToken());
 							if(propertyObject.getToken().equals("number") )
 							{							
 								partListNumber = propertyObject.getValue();
 							}
 						}
 					}
+					if(metaDataObject.getId().contains("WTPart_"))
+					{
+						List<Property> propertyList = metaDataObject.getPropertyList();				
+						for (Property propertyObject : propertyList) 
+						{
+							//System.out.println("Propery Info: "+propertyObject.getToken());
+							if(propertyObject.getToken().equals("ModelNumber") )
+							{							
+								modelNumber = propertyObject.getValue();
+							}
+							if(propertyObject.getToken().equals("SerialNumber") )
+							{							
+								serialNumber = propertyObject.getValue();
+							}
+						}
+					}
 				}
+				//For loop :Getting all Images tags number and name value from it .
+				for(ImagesObject imagesObject: imagesObjList)
+				{
+					List<ImageObject> imageList = imagesObject.getImageList();
+					if( (!(imageList == null) ) )
+					{
+						for (ImageObject imageObject : imageList) 
+						{						
+							String imageNumber="";
+							String imageName="";
+							List<MetaDataObject> imageMetadataList = imageObject.getMetaDataObject();
+							for (MetaDataObject metaDataObject : imageMetadataList)
+							{
+
+								List<Property> propertyList = metaDataObject.getPropertyList();				
+								for (Property propertyObject : propertyList) 
+								{
+									//System.out.println("Propery Info: "+propertyObject.getToken());
+									if(propertyObject.getToken().equals("number") )
+									{
+										//System.out.println("Metadata Part Number :"+propertyObject.getValue());
+										imageNumber = propertyObject.getValue();
+									}
+									if(propertyObject.getToken().equals("name") )
+									{
+										//	System.out.println("Metadata Part Name :"+propertyObject.getValue());
+										imageName = propertyObject.getValue();
+									}
+								}
+							}
+							System.out.println("Values:"+partListNumber+":"+imageNumber+":"+imageName+":"+modelNumber+":"+serialNumber);
+							//need to add image data to set here...
+							allItems.add(new String[] { partListNumber,imageNumber,imageName,modelNumber,serialNumber});
+						}
+					}
+				}
+
 				//For loop for Items  Metadata
-				for (ItemsObject itemsObject : itemsObjList) 
+				/* TODO : Commented because code for extract image tag details with partlist details :25-9-19 :DP
+ 			 	for (ItemsObject itemsObject : itemsObjList) 
 				{
 					List<ItemObject> itemList = itemsObject.getItemList();
 					if( (!(itemList == null) ) )
@@ -314,49 +379,51 @@ public class MainApp
 							String partNumber="";
 							for (MetaDataObject metaDataObject : itemMetadataList)
 							{
-								//System.out.println("Meta Info :"+metaDataObject.getId());								
+								System.out.println("Meta Info :"+metaDataObject.getId());								
 								if(metaDataObject.getId().contains("WTPart_"))
 								{
 									List<Property> propertyList = metaDataObject.getPropertyList();				
 									for (Property propertyObject : propertyList) 
 									{
-										//System.out.println("Propery Info: "+propertyObject.getToken());
+										System.out.println("Propery Info: "+propertyObject.getToken());
 										if(propertyObject.getToken().equals("number") )
 										{
-											//System.out.println("Metadata Part Number :"+propertyObject.getValue());
+											System.out.println("Metadata Part Number :"+propertyObject.getValue());
 											partNumber = propertyObject.getValue();
 										}
 									}
 								}
 								if(metaDataObject.getId().contains("PartListItem_"))
 								{
-									List<Property> propertyList = metaDataObject.getPropertyList();				
+									List<Property> propertyList = metaDataObject.getPropertyList();
+									System.out.println("In PartListItem_ condition ");
 									for (Property propertyObject : propertyList) 
 									{
 										if(propertyObject.getToken().equals("itemNumber") )
 										{
-											//	System.out.println(" itemNumber :"+propertyObject.getValue());
+											System.out.println(" itemNumber :"+propertyObject.getValue());
 											itemNum = propertyObject.getValue();
 										}
 										else if(propertyObject.getToken().equals("itemQuantity") )
 										{
-											//System.out.println(" itemQuantity :"+propertyObject.getValue());
+											System.out.println(" itemQuantity :"+propertyObject.getValue());
 											itemQty = propertyObject.getValue();
 										}
 										else if(propertyObject.getToken().equals("ServiceEffectivity") )
 										{
-											//System.out.println(" ServiceEffectivity :"+propertyObject.getValue());
+											System.out.println(" ServiceEffectivity :"+propertyObject.getValue());
 											se_Eff = propertyObject.getValue();										
 										}
 									}
 								}																
 							}
-							//	System.out.println("Values:"+partNumber+":"+itemNum+":"+itemQty+":"+se_Eff);
+							System.out.println("Values:"+partNumber+":"+itemNum+":"+itemQty+":"+se_Eff);
 							splitXml_Ser_Eff(se_Eff,partListNumber,partNumber,itemNum,itemQty);
 						}
 					}
-				}			
-				if(fileProcessCount%1000 == 0)
+				}  */
+
+				if(fileProcessCount % 5000 == 0)
 				{
 					System.out.println("########### Total Lines to write in csv file : "+allItems.size()+" ########### ");
 					writeCSVFile(allItems,fileProcessCount);
@@ -387,11 +454,14 @@ public class MainApp
 
 			// create CSVWriter object filewriter object as parameter 
 			CSVWriter csvWriter = new CSVWriter(outputfile); 
-			csvWriter.writeNext(new String[] { "PartList_Number","Product_Name","Part_Number","itemNumber","itemQuantity","From_Date","To_Date" });
+			//TODO: Below line commented as new requirement for Images extraction so made changes:DP:25-9-2019
+			//	csvWriter.writeNext(new String[] { "PartList_Number","Product_Name","Part_Number","itemNumber","itemQuantity","From_Date","To_Date" });
+			csvWriter.writeNext(new String[] { "PartList_Number","Image_Number","Image_Name","Model_Number","Serial_Number"});
 			csvWriter.writeAll(list); 
 
 			// closing writer connection 
 			csvWriter.close(); 
+			outputfile.close();	
 			System.out.println("#######   Writing into csv file is FINISH ######### ");
 		} 
 		catch (IOException e)
@@ -418,6 +488,7 @@ public class MainApp
 
 			// closing writer connection 
 			csvWriter.close(); 
+			outputfile.close();			
 			System.out.println("#######   Writing into csv file is FINISH ######### ");
 		} 
 		catch (IOException e)
@@ -427,16 +498,17 @@ public class MainApp
 
 	}
 
+	@SuppressWarnings("unused")
 	private static void splitXml_Ser_Eff(String se_Eff,String partListNum,String partNumber,String itemNum,String itemQty) 
 	{
-
+		System.out.println("IN splitXml_Ser_Eff");
 		String[] sSplit = se_Eff.split("PRODUCT");
 
 		for (String string : sSplit) 
 		{
 			if(string.contains("DATE_RANGE"))
 			{
-				//	System.out.println("main SPlit :"+string+":");
+				System.out.println("main SPlit :"+string+":");
 				String[] splitByProd = string.split(" "); 
 
 				//	System.out.println("ProductName :"+splitByProd[1]);
@@ -450,7 +522,7 @@ public class MainApp
 				{
 					if(string2.contains("00:00:00"))
 					{
-						//System.out.println(":Date SPlit  :"+string2);
+						System.out.println(":Date SPlit  :"+string2);
 						String[] foreachPrdDateRanges =new String[7];  //For each se_eff 
 
 						String[] dates = string2.split(" ");

@@ -15,11 +15,10 @@ public class MetaDataObject
 	public String getPartListNumber() {
 		return partListNumber;
 	}
-
-	
 	public void setPartListNumber(String partListNumber) {
 		this.partListNumber = partListNumber;
 	}
+	
 	@XmlAttribute(name="id")
 	public String getId() {
 		return id;
